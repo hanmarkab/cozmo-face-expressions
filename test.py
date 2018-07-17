@@ -34,6 +34,16 @@ def getFacialExpression(robot: cozmo.robot.Robot):
     facialExpression = observedFace.expression
     return facialExpression
 
+def isFaceKnown(robot: cozmo.robot.Robot, face: cozmo.faces.Face):
+    '''
+    Returns if the face is known or not
+    '''
+    if not face.name:
+        robot.say_text("I don't recognize you").wait_for_completed()
+        return False
+    robot.say_text("Hello %s!" % (face.name)).wait_for_completed()
+    return True
+
 def sayFacialExpression(robot: cozmo.robot.Robot, facialExpression: str):
     '''
     Cozmo speaks the given facial expression out loud
