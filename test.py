@@ -109,6 +109,8 @@ def findAndGiveCubeToFriend(robot: cozmo.robot.Robot):
         thisaction.wait_for_completed()
 
         robot.say_text("Best Friends forever").wait_for_completed()
+    else:
+        robot.say_text("Aw, I can't show you my block")
 
 def impressFriendUsingWheelie(robot: cozmo.robot.Robot):
     '''
