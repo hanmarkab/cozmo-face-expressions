@@ -20,7 +20,6 @@ def getVisibleFace(robot: cozmo.robot.Robot):
     except asyncio.TimeoutError:
         print("Didn't find a face - exiting!")
         return None
-    robot.say_text("Found a friend").wait_for_completed()
     return observedFace
 
 def getFacialExpression(robot: cozmo.robot.Robot):
@@ -162,7 +161,9 @@ def reactToFacialExpression(robot: cozmo.robot.Robot, Fexpress: str):
     elif Fexpress == "neutral" or Fexpress == "angry" or Fexpress == "sad":
         cheerFriendUp(robot)
     elif Fexpress == "unknown":
-        runAwayFromStranger(robot)
+        print("Unknown expression")
+        Fexpress = getFacialExpression(robot)
+        reactToFacialExpression(robot, Fexpress)
     else:
         robot.say_text("Hello").wait_for_completed()
 
@@ -175,7 +176,9 @@ def cozmo_program(robot: cozmo.robot.Robot):
     Fexpress = getFacialExpression(robot)
     print(Fexpress)
 
-    # sayFacialExpression(robot, Fexpress)
+    if Fexpress:
+        robot.say_text("Found a Friend").wait_for_completed()
+
     reactToFacialExpression(robot, Fexpress)
 
 #=========== Below portion is what actually runs the above program =============
